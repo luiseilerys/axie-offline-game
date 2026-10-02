@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#1a1a2e">
+  <title>Axie Offline</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <div id="app">
+    <!-- Pantalla de inicio -->
+    <div id="screen-home" class="screen active">
+      <h1>Axie Offline</h1>
+      <p class="subtitle">Colecciona · Cría · Combate</p>
+      <div class="menu-buttons">
+        <button id="btn-continue" class="btn primary" style="display:none">Continuar</button>
+        <button id="btn-new-game" class="btn primary">Nueva Partida</button>
+        <button id="btn-collection" class="btn">Colección</button>
+        <button id="btn-battle" class="btn">Batalla</button>
+        <button id="btn-breed" class="btn">Crianza</button>
+      </div>
+      <div class="currency">💰 <span id="gold-display">0</span></div>
+    </div>
+
+    <!-- Pantalla de colección -->
+    <div id="screen-collection" class="screen">
+      <h2>Colección</h2>
+      <button class="btn back" data-back="home">← Volver</button>
+      <div id="collection-list" class="grid"></div>
+    </div>
+
+    <!-- Pantalla de batalla -->
+    <div id="screen-battle-setup" class="screen">
+      <h2>Preparar Batalla</h2>
+      <button class="btn back" data-back="home">← Volver</button>
+      <p>Selecciona modo:</p>
+      <button id="btn-1v1" class="btn">1 vs 1</button>
+      <button id="btn-3v3" class="btn">3 vs 3</button>
+      <div id="team-select" style="display:none">
+        <p>Elige tu equipo:</p>
+        <div id="team-list" class="grid"></div>
+        <button id="btn-start-battle" class="btn primary" disabled>Iniciar Batalla</button>
+      </div>
+    </div>
+
+    <!-- Pantalla de combate -->
+    <div id="screen-battle" class="screen">
+      <div id="battle-field">
+        <div id="enemy-side" class="side"></div>
+        <div id="player-side" class="side"></div>
+      </div>
+      <div id="battle-log"></div>
+      <div id="battle-actions">
+        <div id="energy-display">Energía: <span id="energy">0</span></div>
+        <div id="skill-buttons"></div>
+        <button id="btn-end-turn" class="btn">Terminar Turno</button>
+      </div>
+    </div>
+
+    <!-- Pantalla de crianza -->
+    <div id="screen-breed" class="screen">
+      <h2>Crianza</h2>
+      <button class="btn back" data-back="home">← Volver</button>
+      <p>Selecciona dos criaturas para criar (costo: 50 💰)</p>
+      <div id="breed-list" class="grid"></div>
+      <button id="btn-do-breed" class="btn primary" disabled>Criar</button>
+      <div id="breed-result"></div>
+    </div>
+
+    <!-- Detalle de criatura -->
+    <div id="screen-detail" class="screen">
+      <button class="btn back" data-back="collection">← Volver</button>
+      <div id="detail-content"></div>
+    </div>
+  </div>
+  <script src="js/data.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>

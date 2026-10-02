@@ -1,0 +1,12 @@
+{
+  "appId": "com.axieoffline.game",
+  "appName": "Axie Offline",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "minWebViewVersion": 55,
+    "allowMixedContent": true
+  }
+}

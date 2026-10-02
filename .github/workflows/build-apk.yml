@@ -1,0 +1,58 @@
+name: Build APK
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Add Android platform
+        run: npx cap add android || true
+
+      - name: Sync Capacitor
+        run: npx cap sync android
+
+      - name: Set minSdk and targetSdk
+        run: |
+          # Ensure minSdkVersion 21 and targetSdkVersion 34
+          if [ -f android/variables.gradle ]; then
+            sed -i 's/minSdkVersion = .*/minSdkVersion = 21/' android/variables.gradle || true
+            sed -i 's/compileSdkVersion = .*/compileSdkVersion = 34/' android/variables.gradle || true
+            sed -i 's/targetSdkVersion = .*/targetSdkVersion = 34/' android/variables.gradle || true
+          fi
+          if [ -f android/app/build.gradle ]; then
+            sed -i 's/minSdkVersion .*/minSdkVersion 21/' android/app/build.gradle || true
+            sed -i 's/targetSdkVersion .*/targetSdkVersion 34/' android/app/build.gradle || true
+            sed -i 's/compileSdkVersion .*/compileSdkVersion 34/' android/app/build.gradle || true
+          fi
+
+      - name: Build Debug APK
+        working-directory: android
+        run: chmod +x gradlew && ./gradlew assembleDebug --no-daemon
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: axie-offline-apk
+          path: android/app/build/outputs/apk/debug/*.apk
+          retention-days: 30
