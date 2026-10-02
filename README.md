@@ -1,6 +1,8 @@
 # Axie Offline Game
 
-Juego de criaturas coleccionables offline para Android 5.0+ (API 21), inspirado en Axie Infinity pero **100% offline y sin blockchain**.
+Juego de criaturas coleccionables offline para Android 5.1+ (API 22), inspirado en Axie Infinity pero **100% offline y sin blockchain**.
+
+> Nota: Capacitor 6 / Cordova requieren minSdk 22 (Android 5.1). Cubre prácticamente todos los dispositivos Android 5.0+.
 
 ## Características
 
@@ -25,9 +27,9 @@ Abre `www/index.html` en cualquier navegador moderno. Todo funciona offline.
 El workflow de GitHub Actions (`Build APK`) se ejecuta automáticamente en cada push a `main`.
 
 1. Ve a la pestaña **Actions** del repositorio.
-2. Selecciona el workflow **Build APK** más reciente.
+2. Selecciona el workflow **Build APK** más reciente (debe aparecer en verde).
 3. Descarga el artifact `axie-offline-apk`.
-4. Instala el APK en tu dispositivo Android 5.0+ (activa "Orígenes desconocidos" si es necesario).
+4. Instala el APK en tu dispositivo Android 5.1+ (activa "Orígenes desconocidos" si es necesario).
 
 ### Compilar localmente
 
@@ -57,9 +59,13 @@ capacitor.config.json
 
 ## Requisitos Android
 
-- Min SDK: 21 (Android 5.0 Lollipop)
+- Min SDK: 22 (Android 5.1 Lollipop)
 - Target SDK: 34
 - Sin permisos de internet necesarios para jugar
+
+## Enlace del repositorio
+
+https://github.com/luiseilerys/axie-offline-game
 
 ---
 Hecho con ❤️ de forma completamente offline.
