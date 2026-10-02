@@ -34,16 +34,20 @@ jobs:
 
       - name: Set minSdk and targetSdk
         run: |
-          # Ensure minSdkVersion 21 and targetSdkVersion 34
+          # Capacitor 6 / Cordova requires minSdk 22. Target 34.
           if [ -f android/variables.gradle ]; then
-            sed -i 's/minSdkVersion = .*/minSdkVersion = 21/' android/variables.gradle || true
+            sed -i 's/minSdkVersion = .*/minSdkVersion = 22/' android/variables.gradle || true
             sed -i 's/compileSdkVersion = .*/compileSdkVersion = 34/' android/variables.gradle || true
             sed -i 's/targetSdkVersion = .*/targetSdkVersion = 34/' android/variables.gradle || true
           fi
           if [ -f android/app/build.gradle ]; then
-            sed -i 's/minSdkVersion .*/minSdkVersion 21/' android/app/build.gradle || true
+            sed -i 's/minSdkVersion .*/minSdkVersion 22/' android/app/build.gradle || true
             sed -i 's/targetSdkVersion .*/targetSdkVersion 34/' android/app/build.gradle || true
             sed -i 's/compileSdkVersion .*/compileSdkVersion 34/' android/app/build.gradle || true
+          fi
+          # Also patch AndroidManifest if needed
+          if [ -f android/app/src/main/AndroidManifest.xml ]; then
+            sed -i 's/android:minSdkVersion="[0-9]*"/android:minSdkVersion="22"/' android/app/src/main/AndroidManifest.xml || true
           fi
 
       - name: Build Debug APK
